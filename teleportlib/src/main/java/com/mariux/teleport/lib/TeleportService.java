@@ -147,6 +147,7 @@ public abstract class TeleportService extends WearableListenerService{
     public void syncDataItem(PutDataMapRequest putDataMapRequest) {
 
         PutDataRequest request = putDataMapRequest.asPutDataRequest();
+        request.setUrgent();
 
         Log.d(TAG, "Generating DataItem: " + request);
         if (!mGoogleApiClient.isConnected()) {

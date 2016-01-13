@@ -177,6 +177,7 @@ public class TeleportClient implements DataApi.DataListener,
     public void syncDataItem(PutDataMapRequest putDataMapRequest) {
 
         PutDataRequest request = putDataMapRequest.asPutDataRequest();
+        request.setUrgent();
 
         Log.d(TAG, "Generating DataItem: " + request);
         if (!mGoogleApiClient.isConnected()) {

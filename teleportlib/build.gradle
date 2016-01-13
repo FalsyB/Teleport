@@ -1,17 +1,9 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.5'
-    }
-}
-
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'maven-publish'
-apply plugin: 'maven'
-
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.mariux.teleport.lib'
+version = '0.1.7'
 
 android {
     compileSdkVersion 23
@@ -22,7 +14,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1.4"
+        versionName "0.1.7"
     }
     buildTypes {
         release {
@@ -37,4 +29,33 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:8.3.0'
 }
 
-//apply from: 'bintray_publish.gradle'
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+bintray {
+    user = 'raffaeu'
+    key = '905538a889438dee94aeca0cf3605ffe8c17aff3'
+    pkg {
+        repo = 'maven'
+        name = 'Teleport'
+
+        version {
+            name = 'teleportlib'
+            desc = 'Teleport Library'
+            released  = new Date()
+            vcsTag = '0.1.7'
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/raffaeu/Teleport.git'
+        websiteUrl = 'https://github.com/raffaeu/Teleport'
+    }
+    configurations = ['archives']
+}
