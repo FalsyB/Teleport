@@ -1,5 +1,6 @@
 Welcome to Teleport (reloaded)
 ===================
+![Teleport Icon](https://github.com/raffaeu/Teleport/blob/master/doc/images/teleport_256.png)
 
 Teleport Reloaded is a fork of the original Teleport Library for Android Wear built by Mario Viviani and available here: https://github.com/Mariuxtheone.
 Since Mario is not available anymore I contacted him and decided to move forward and customize Teleport to include features like:
