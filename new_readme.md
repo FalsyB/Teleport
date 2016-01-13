@@ -35,8 +35,7 @@ At the moment there are two major classes available:
 
 Table of Contents
 =================
-
- Setup your project
+ - Setup your project
  - TeleportClient inside an Activity or Fragment
  - TeleportService
  - Data Synchronization
