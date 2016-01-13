@@ -146,6 +146,7 @@ Author: Mario Viviani
 
 ##Thanks to:
 Damien Cavaillès - https://github.com/thedamfr
+Raffaele Garofalo - https://github.com/raffaeu (update to GMS 8.3 and Android Studio 1.5)
 
 
 ##License
