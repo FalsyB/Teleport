@@ -36,7 +36,7 @@ Then add a reference to the new Teleport library (*the name is different because
 ```java
     dependencies {
         compile 'com.mariux.teleport.lib:teleportlib:0.1.9'
-    }
+    } 
 ```
 If you want to use the latest version you can simply replace **o.1.9** with a **+** but considering that this will be a new library and there are plenty of **uncompleted** APIs I would suggest you to keep using the version number and check the breaking changes between versions.
 ###02 - Add Reference to Google Play
