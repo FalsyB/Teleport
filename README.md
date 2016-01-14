@@ -44,6 +44,7 @@ Table of Contents
  - Advanced Usage
  - Send from a Service
  - Synchronization tips
+ - Demo Code and Samples
 
 Original License
 ----------------
