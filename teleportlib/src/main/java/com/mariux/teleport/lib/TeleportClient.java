@@ -142,6 +142,12 @@ public class TeleportClient implements DataApi.DataListener,
         syncDataItem(putDataMapRequest);
     }
 
+    public void syncFloat(String key, float item){
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/" + key);
+        putDataMapRequest.getDataMap().putFloat(key, item);
+        syncDataItem(putDataMapRequest);
+    }
+
     public void syncBoolean(String key, boolean item) {
         PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/" + key);
         putDataMapRequest.getDataMap().putBoolean(key, item);

@@ -107,6 +107,12 @@ public abstract class TeleportService extends WearableListenerService{
         syncDataItem(putDataMapRequest);
     }
 
+    public void syncFloat(String key, float item){
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/" + key);
+        putDataMapRequest.getDataMap().putFloat(key, item);
+        syncDataItem(putDataMapRequest);
+    }
+
     public void syncLong(String key, long item) {
         PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/" + key);
         putDataMapRequest.getDataMap().putLong(key, item);
