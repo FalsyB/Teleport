@@ -1,171 +1,61 @@
-# Teleport - Data Sync & Messaging Library for Android Wear
+Welcome to Teleport (reloaded)
+===================
+![Teleport Icon](https://github.com/raffaeu/Teleport/blob/master/doc/images/teleport_256.png)
 
-![Screen](/doc/images/teleport_256.png)
+Teleport Reloaded is a fork of the original Teleport Library for Android Wear built by Mario Viviani and available here: https://github.com/Mariuxtheone.
+Since Mario is not available anymore I contacted him and decided to move forward and customize Teleport to include features like:
 
-Teleport is a library to easily setup and manage Data Syncronization and Messaging on Android Wearables.
+ - Message Brokering
+ - Messages and DataItem priority (since google gms version 8.3)
+ - Upgrade to the latest Google Play and Android version
 
-*The library is thought for Android Studio.*
+The original Teleport project had also some major bugs related to Message Api not capable to send and receive a payload and to DataApi mixing multiple requests. All these bugs have been addressed and are available on this version of Teleport, this is why I decided to call it Teleport (Reloaded).
 
+> Note: the project is still Open Source using Apache 2.0 license and I
+> am claiming any rights on this project but because since the version
+> 8.1 of Google Play Service, the library Teleport stopped to work I decided to upgrade it and keep it alive as a new fork of the original
+> one.
 
+----------
 
-##Quick Overview
+Overview
+-------------
 
-You can see Teleport as an Android Wear "plugin" you can add to your Activities and Services.
+Teleport (reloaded), like the original teleport, can be used in multiple ways:
 
-Teleport provides you **commodity classes** to easily establish a communication between a mobile handheld device and an Android Wear device.
+ - You can use it to send Message and/or DataItem from your Phone to your Smartwatch and vice-versa
+ - You can use it to create ListenerServices for both Messages and DataItems
+ - You can use it together with Google Api Client to reduce the amount of boiler plate code required to open a communication between two devices
 
-*  `TeleportClient` provides you "endpoints" you can put inside your Activities, both in Mobile and Wear.
-*  `TeleportService` is a full-fledged, already set-up 'WearableListenerService'. 
+At the moment there are two major classes available:
 
-Both these classes incapsulates all the `GoogleApiClient` setup required to establish a connection between Mobile and Wear.
+ - `TeleportClient`
+ This class is in charge of opening and closing a connection with Google Api Client plus is capable to send Messages and/or DataItems
+ - `TeleportService`
+ This class is in charge of providing the basic boilerplate code for a `WearableListenerService` class, including connection with the `GoogleApiClient` class and handling notifications
 
-`TeleportClient` and `TeleportService` also provide you two `AsyncTask` you can extend to easily perform operations with the synced DataItems and received Messages:
+Table of Contents
+=================
+ - [Setup your project](https://github.com/raffaeu/Teleport/blob/master/doc/SETUP.md)
+ - TeleportClient inside an Activity or Fragment
+ - TeleportService
+ - Data Synchronization
+ - Send and Receive Messages
+ - Advanced Usage
+ - Message Brokering
 
-* `OnSyncDataItemTask` provides you a complete `DataMap` of synced data
-* `OnGetMessageTask` provides you access to a received Message `path` in form of `String`.
+Original License
+----------------
+Copyright 2014-2015 Mario Viviani
 
-You just need to *extend* these tasks inside your Activity/Service and you're good to go!
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-To Sync Data and send Messages, you can use commodity methods like
+       http://www.apache.org/licenses/LICENSE-2.0
 
-* `sync<ItemType>(String key, <ItemType> item)` to Sync Data across devices
-* `sendMessage(String path, byte[] payload)` to send a Message to another device.
-
-##Summary
-
-* [Library Set Up:](/doc/SETUP.md) How to import Teleport library in your project.
-* [TeleportClient in Activity:](/doc/TELEPORTCLIENT.md) How to setup a TeleportClient.
-* [TeleportService:](/doc/TELEPORTSERVICE.md) How to setup a TeleportService.
-* [Sync Data:](/doc/SYNCDATA.md) How to Sync Data
-* [Send and Receive Messages:](/doc/MESSAGE.md) How to Send and Receive Messages
-* [Advanced Usage:](/doc/ADVANCEDUSAGE.md) AsyncTask Factory and Callbacks
-
-##Can I have an example of how easy is Teleport to use?
-
-There you go :-) 
-
-Here's a *Mobile and a Wear Activity* already configured to Sync Data. 
-
-* The MobileActivity synchronizes a string "Hello, World!".
-* The WearActivity shows a Toast with the synchronized string.
-
-###MobileActivity.java   
-```java
-    
-    public class MobileActivity extends Activity {
-
-    TeleportClient mTeleportClient;
-    
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_mobile);
-
-             mTeleportClient = new TeleportClient(this);         
-         }
-
-        @Override
-        protected void onStart() {
-            super.onStart();
-            mTeleportClient.connect();
-            }
-
-        @Override
-        protected void onStop() {
-            super.onStop();
-            mTeleportClient.disconnect();
-         }
-    
-  
-        public void syncDataItem(View v) {                   
-           //Let's sync a String!
-           mTeleportClient.syncString("hello", "Hello, World!");   
-        }
-        
-    }
-```
-    
-###WearActivity.java
-    
-```java
-
-    public class WearActivity extends Activity {
-    
-        TeleportClient mTeleportClient;
-        
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_wear);
-    
-             mTeleportClient = new TeleportClient(this);
-             
-             mTeleportClient.setOnSyncDataItemTask(new ShowToastHelloWorldTask());
-             
-        }
-    
-        @Override
-        protected void onStart() {
-            super.onStart();
-            mTeleportClient.connect();
-        }
-    
-        @Override
-        protected void onStop() {
-            super.onStop();
-            mTeleportClient.disconnect();
-    
-        }
-    
-        public class ShowToastHelloWorldTask extends TeleportClient.OnSyncDataItemTask {
-        
-                @Override
-                protected void onPostExecute(DataMap dataMap) {
-        
-                    String hello = dataMap.getString("hello");   
-        
-                    Toast.makeText(getApplicationContext(),hello,Toast.LENGTH_SHORT).show();
-                }
-        }
-            
-    }
-```
-    
-Jump to [Library Set Up](/doc/SETUP.md) !!!
-
-##Follow me on
-Author: Mario Viviani
-<a href="https://plus.google.com/+MarioViviani/posts">
-  <img alt="Follow me on Google+"
-       src="https://github.com/Mariuxtheone/Teleport/raw/master/doc/images/googleplus64.png" />
-</a>
-<a href="https://it.linkedin.com/pub/mario-viviani/45/b96/a59/">
-  <img alt="Follow me on LinkedIn"
-       src="https://github.com/Mariuxtheone/Teleport/raw/master/doc/images/linkedin64.png" />
-</a>
-
-##Thanks to:
-Damien Cavaillès - https://github.com/thedamfr
-Raffaele Garofalo - https://github.com/raffaeu (update to GMS 8.3 and Android Studio 1.5)
-
-
-##License
-
-Teleport is released under the **Apache License 2.0**
-
-    Copyright 2014-2015 Mario Viviani
-    
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-    
-           http://www.apache.org/licenses/LICENSE-2.0
-    
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an "AS IS" BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.
-
-
-
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
