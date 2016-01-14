@@ -53,3 +53,4 @@ This metatag should be included into your **Application** TAG and it is required
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+[Go back to homepage](https://github.com/raffaeu/Teleport/blob/master/README.md)

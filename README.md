@@ -37,7 +37,7 @@ At the moment there are two major classes available:
 Table of Contents
 =================
  - [Setup your project](https://github.com/raffaeu/Teleport/blob/master/doc/SETUP.md)
- - TeleportClient inside an Activity or Fragment
+ - [TeleportClient inside an Activity or Fragment](https://github.com/raffaeu/Teleport/blob/master/doc/CLIENT.md)
  - TeleportService
  - Data Synchronization
  - Send and Receive Messages
