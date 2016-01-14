@@ -39,10 +39,11 @@ Table of Contents
  - [Setup your project](https://github.com/raffaeu/Teleport/blob/master/doc/SETUP.md)
  - [TeleportClient inside an Activity or Fragment](https://github.com/raffaeu/Teleport/blob/master/doc/CLIENT.md)
  - [TeleportService](https://github.com/raffaeu/Teleport/blob/master/doc/SERVICE.md)
- - Data Synchronization
  - Send and Receive Messages
+ - Send and Receive DataItem
  - Advanced Usage
- - Message Brokering
+ - Send from a Service
+ - Synchronization tips
 
 Original License
 ----------------
