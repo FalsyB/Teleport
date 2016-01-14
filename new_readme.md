@@ -9,7 +9,7 @@ Since Mario is not available anymore I contacted him and decided to move forward
  - Messages and DataItem priority (since google gms version 8.3)
  - Upgrade to the latest Google Play and Android version
 
-
+The original Teleport project had also some major bugs related to Message Api not capable to send and receive a payload and to DataApi mixing multiple requests. All these bugs have been addressed and are available on this version of Teleport, this is why I decided to call it Teleport (Reloaded).
 
 > Note: the project is still Open Source using Apache 2.0 license and I
 > am claiming any rights on this project but because since the version

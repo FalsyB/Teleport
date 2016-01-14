@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Mario Viviani on 09/07/2014.
@@ -182,6 +183,7 @@ public class TeleportClient implements DataApi.DataListener,
     //General method to sync data in the Data Layer
     public void syncDataItem(PutDataMapRequest putDataMapRequest) {
 
+        putDataMapRequest.getDataMap().putString("ID", UUID.randomUUID().toString());
         PutDataRequest request = putDataMapRequest.asPutDataRequest();
         request.setUrgent();
 
