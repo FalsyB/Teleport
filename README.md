@@ -38,7 +38,7 @@ Table of Contents
 =================
  - [Setup your project](https://github.com/raffaeu/Teleport/blob/master/doc/SETUP.md)
  - [TeleportClient inside an Activity or Fragment](https://github.com/raffaeu/Teleport/blob/master/doc/CLIENT.md)
- - TeleportService
+ - [TeleportService](https://github.com/raffaeu/Teleport/blob/master/doc/SERVICE.md)
  - Data Synchronization
  - Send and Receive Messages
  - Advanced Usage
