@@ -144,5 +144,9 @@ Teleport (Reloaded) offer a method for each primitive type, so from a `TeleportC
  - Integer, Long, Decimal, Float
  - Boolean, Byte[]
  - String and Images
- 
+
+For more details please have a look at the dedicated section:
+  - [Send and Receive Messages](https://github.com/raffaeu/Teleport/blob/master/doc/MESSAGES.md)
+  - [Send and Receive DataItem](https://github.com/raffaeu/Teleport/blob/master/doc/DATASYNC.md)
+
 [Go back to homepage](https://github.com/raffaeu/Teleport/blob/master/README.md)

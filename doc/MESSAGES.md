@@ -32,6 +32,9 @@ public class MobileService extends TeleportService{
 
 When your Service class is created you need to create a custom Task to handle messages. The task should extends 
 the `TeleportService.OnGetMessageTask`.
+Right now Teleport doesn't allow you to read the Payload passed into the Message but it is something I am considering 
+to add in one of the next releases.
+
 >**Note:**
 >Remember that in Android a Task can be executed only once, then you need to recreate one if you plan to listen for 
 >multiple messages.
@@ -43,7 +46,8 @@ public class ReadMessageTask extends TeleportService.OnGetMessageTask {
    @Override
    protected void onPostExecute(String  path) {
         // do something with the message
-
+        Log.d(TAG, String.format("Message: %s", path));
+        
         // let`s reset the task (otherwise it will be executed only once)
         setOnGetMessageTask(new ReadMessageTask());
     }
@@ -77,3 +81,5 @@ public void onCreate() {
     });
 }
 ```
+
+[Go back to homepage](https://github.com/raffaeu/Teleport/blob/master/README.md)

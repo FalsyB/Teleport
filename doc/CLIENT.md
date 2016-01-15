@@ -8,7 +8,7 @@ Inside your Activity or Fragment start by declaring a new variable of type `Tele
 ```java
 public class Activity extends AppCompactActivity{
      // create a new variable of type TeleportClient
-     TeleportClient client = null;
+     TeleportClient teleportClient = null;
 }
 ```    
 
@@ -19,8 +19,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_mobile);
 
-    mTeleportClient = new TeleportClient(this);
-
+    teleportClient = new TeleportClient(this);
 }
 ```    
 Then connect the client inside the onStart method of your Activity:
@@ -28,7 +27,7 @@ Then connect the client inside the onStart method of your Activity:
 @Override
 protected void onStart() {
     super.onStart();
-    mTeleportClient.connect();
+    teleportClient.connect();
 }
 ```    
 And disconnect inside the onStop method:
@@ -36,7 +35,7 @@ And disconnect inside the onStop method:
 @Override
 protected void onStop() {
     super.onStop();
-    mTeleportClient.disconnect();
+    teleportClient.disconnect();
 
 }  
 ```    
@@ -47,7 +46,7 @@ First of all, like you did for the Activity, you need to create an instance of a
 ```java
 public class AnalogWatchFaceService extends CanvasWatchFaceService{
      // create a new variable of type TeleportClient
-     TeleportClient client = null;
+     TeleportClient teleportClient = null;
 }
 ```    
 Now, the `CanvasWatchfaceService` has two useful methods that you can override, one is called `onCreate()` and one is called `onDestroy()`. These two methods are inherited from the base class `android.support.wearable.watchface.WallpaperService`:
@@ -57,7 +56,7 @@ Then connect the client inside the `onStart` method of your Activity:
 @Override
 protected void onCreate() {
     super.onCreate();
-    mTeleportClient.connect();
+    teleportClient.connect();
 }
 ```    
 Disconnect inside the onStop method:
@@ -65,8 +64,7 @@ Disconnect inside the onStop method:
 @Override
 protected void onDestroy() {
     super.onDestroy();
-    mTeleportClient.disconnect();
-
+    teleportClient.disconnect();
 }  
 ```    
 Now within your `Engine` code you can easily access the parent class and the TeleportClient instance and send messages to your phone.
