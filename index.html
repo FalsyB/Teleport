@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Teleport by raffaeu</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Teleport</h1>
+        <p>Data Sync &amp; Messaging Library for Android Wear</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/raffaeu/Teleport" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/raffaeu/Teleport/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/raffaeu/Teleport/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a id="welcome-to-teleport-reloaded" class="anchor" href="#welcome-to-teleport-reloaded" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Teleport (reloaded)</h1>
+
+<p><img src="https://github.com/raffaeu/Teleport/blob/master/doc/images/teleport_256.png" alt="Teleport Icon"></p>
+
+<p>Teleport Reloaded is a fork of the original Teleport Library for Android Wear built by Mario Viviani and available here: <a href="https://github.com/Mariuxtheone">https://github.com/Mariuxtheone</a>.
+Since Mario is not available anymore I contacted him and decided to move forward and customize Teleport to include features like:</p>
+
+<ul>
+<li>Message Brokering</li>
+<li>Messages and DataItem priority (since google gms version 8.3)</li>
+<li>Upgrade to the latest Google Play and Android version</li>
+</ul>
+
+<p>The original Teleport project had also some major bugs related to Message Api not capable to send and receive a payload and to DataApi mixing multiple requests. All these bugs have been addressed and are available on this version of Teleport, this is why I decided to call it Teleport (Reloaded).</p>
+
+<blockquote>
+<p>Note: the project is still Open Source using Apache 2.0 license and I
+am <strong>NOT</strong> claiming any rights on this project but because since the version
+8.1 of Google Play Service, the library Teleport stopped to work, I decided to upgrade it and keep it alive as a new fork of the original
+one.</p>
+</blockquote>
+
+<hr>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>Teleport (reloaded), like the original teleport, can be used in multiple ways:</p>
+
+<ul>
+<li>You can use it to send Message and/or DataItem from your Phone to your Smartwatch and vice-versa</li>
+<li>You can use it to create ListenerServices for both Messages and DataItems</li>
+<li>You can use it together with Google Api Client to reduce the amount of boiler plate code required to open a communication between two devices</li>
+</ul>
+
+<p>At the moment there are two major classes available:</p>
+
+<ul>
+<li>
+<code>TeleportClient</code>
+This class is in charge of opening and closing a connection with Google Api Client plus is capable to send Messages and/or DataItems</li>
+<li>
+<code>TeleportService</code>
+This class is in charge of providing the basic boilerplate code for a <code>WearableListenerService</code> class, including connection with the <code>GoogleApiClient</code> class and handling notifications</li>
+</ul>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/SETUP.md">Setup your project</a></li>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/CLIENT.md">TeleportClient inside an Activity or Fragment</a></li>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/SERVICE.md">TeleportService</a></li>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/MESSAGES.md">Send and Receive Messages</a></li>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/DATASYNC.md">Send and Receive DataItem</a></li>
+<li>Advanced Usage</li>
+<li><a href="https://github.com/raffaeu/Teleport/blob/master/doc/SEND_SERVICE.md">Send from a Service</a></li>
+<li>Synchronization tips</li>
+<li>Demo Code and Samples</li>
+</ul>
+
+<h2>
+<a id="quick-setup" class="anchor" href="#quick-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Setup</h2>
+
+<p>If you don't want to jump into the documentation but you just want to have a quick look at how Teleport (Reloaded) 
+works, there you go:</p>
+
+<h3>
+<a id="01---setup-a-reference-using-maven" class="anchor" href="#01---setup-a-reference-using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>01 - Setup a Reference using Maven</h3>
+
+<div class="highlight highlight-source-java"><pre>apply plugin<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>com.android.application<span class="pl-pds">'</span></span>
+
+<span class="pl-c">// here include my URL</span>
+repositories{
+    maven{
+        url <span class="pl-s"><span class="pl-pds">"</span>http://dl.bintray.com/raffaeu/maven<span class="pl-pds">"</span></span>
+    }
+}
+<span class="pl-c">// add a reference</span>
+dependencies {
+    compile <span class="pl-s"><span class="pl-pds">'</span>com.mariux.teleport.lib:teleportlib:0.1.9<span class="pl-pds">'</span></span>
+} </pre></div>
+
+<h3>
+<a id="02---setup-a-teleport-client" class="anchor" href="#02---setup-a-teleport-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>02 - Setup a Teleport Client</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Activity</span> <span class="pl-k">extends</span> <span class="pl-e">AppCompactActivity</span>{
+     <span class="pl-c">// create a new variable of type TeleportClient</span>
+     <span class="pl-smi">TeleportClient</span> client <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+
+    <span class="pl-c">// create a new instance of the client</span>
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>(<span class="pl-smi">Bundle</span> <span class="pl-v">savedInstanceState</span>) {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate(savedInstanceState);
+        setContentView(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>activity_mobile);
+
+        mTeleportClient <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">TeleportClient</span>(<span class="pl-v">this</span>);
+
+    }
+
+    <span class="pl-c">// Start the Client together with the Activity</span>
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">onStart</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onStart();
+        mTeleportClient<span class="pl-k">.</span>connect();
+    }
+
+    <span class="pl-c">// Stop the Client when you are done</span>
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">onStop</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onStop();
+        mTeleportClient<span class="pl-k">.</span>disconnect();    
+    }  
+}</pre></div>
+
+<h3>
+<a id="03---send-a-message-or-a-dataitem" class="anchor" href="#03---send-a-message-or-a-dataitem" aria-hidden="true"><span class="octicon octicon-link"></span></a>03 - Send a Message or a DataItem</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">/** </span>
+<span class="pl-c">* send a Message with two paramenters</span>
+<span class="pl-c">* a key to identify the message and a byte[] which contains a payload</span>
+<span class="pl-c">*/</span>
+teleportClient<span class="pl-k">.</span>sendMessage(<span class="pl-s"><span class="pl-pds">"</span>My Message<span class="pl-pds">"</span></span>, myPayload);
+
+<span class="pl-c">/** </span>
+<span class="pl-c">* send a DataItem with two paramenters</span>
+<span class="pl-c">* a key to identify the message and a T value</span>
+<span class="pl-c">*/</span>
+teleportClient<span class="pl-k">.</span>syncString(<span class="pl-s"><span class="pl-pds">"</span>myKey<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>myValue<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="04---create-a-listener-service-to-retrieve-data" class="anchor" href="#04---create-a-listener-service-to-retrieve-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>04 - Create a Listener Service to retrieve data</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MobileService</span> <span class="pl-k">extends</span> <span class="pl-e">TeleportService</span>{
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+
+        <span class="pl-c">// create a custom TeleportClient.OnSyncDataItemTask to receive DataItem</span>
+        setOnSyncDataItemTask(<span class="pl-k">new</span> <span class="pl-smi">ReceiveDataItemTask</span>());
+
+        <span class="pl-c">// create a custom TeleportService.OnGetMessageTask to receive Messages</span>
+        setOnGetMessageTask(<span class="pl-k">new</span> <span class="pl-smi">ReadMessageTask</span>());
+    }
+}</pre></div>
+
+<h2>
+<a id="original-license" class="anchor" href="#original-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Original License</h2>
+
+<p>Copyright 2014-2015 Mario Viviani</p>
+
+<pre><code>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/raffaeu">raffaeu</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
