@@ -39,7 +39,7 @@ At the moment there are two major classes available:
  - [Send and Receive Messages](https://github.com/raffaeu/Teleport/blob/master/doc/MESSAGES.md)
  - [Send and Receive DataItem](https://github.com/raffaeu/Teleport/blob/master/doc/DATASYNC.md)
  - Advanced Usage
- - Send from a Service
+ - [Send from a Service](https://github.com/raffaeu/Teleport/blob/master/doc/SEND_SERVICE.md)
  - Synchronization tips
  - Demo Code and Samples
 
