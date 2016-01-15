@@ -1,4 +1,4 @@
-##Teleport (Reloaded) Release notes
+#Teleport (Reloaded) Release notes
 ### 0.1.5
  Teleport upgraded to version 8.3 of Google Play Services, source control moved 
  and published on Maven Central

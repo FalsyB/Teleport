@@ -1,5 +1,4 @@
-Service Setup
---------------------------
+#Service Setup
 ##Create a new Service
 A `TeleportService` is a class that extends `WearableListenerService`. It contains an internal reference to 
 a `TeleportClient` and it exposes all methods available from the client to send messages and sync data.
@@ -66,7 +65,7 @@ public class ReadMessageTask extends TeleportService.OnGetMessageTask {
         // do something with the message
 
         // let`s reset the task (otherwise it will be executed only once)
-        setOnGetMessageTask(new StartActivityTask());
+        setOnGetMessageTask(new ReadMessageTask());
     }
 }
 ```
@@ -96,7 +95,7 @@ we reset the task after it is handled:
         // do something with the message
 
         // let`s reset the task (otherwise it will be executed only once)
-        setOnGetMessageTask(new StartActivityTask());
+        setOnGetMessageTask(new ReadMessageTask());
     }
 ```
 
