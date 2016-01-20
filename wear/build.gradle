@@ -16,7 +16,7 @@ android {
         release {
             keyAlias 'keysAlias'
             keyPassword 'secret'
-            storeFile file('D:/BACKUP/Watchfaces/Teleport/SigningKeys.jks')
+            storeFile file('C:/DROID/Teleport/SigningKeys.jks')
             storePassword 'secret'
         }
     }

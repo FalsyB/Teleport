@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.mariux.teleport.lib'
-version = '0.1.9'
+version = '0.1.10'
 
 android {
     compileSdkVersion 23
@@ -14,7 +14,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1.9"
+        versionName "0.1.10"
     }
     buildTypes {
         release {
@@ -36,7 +36,20 @@ task generateSourcesJar(type: Jar) {
 
 task generateJavadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
 }
 
 bintray {
@@ -50,7 +63,7 @@ bintray {
             name = 'teleportlib'
             desc = 'Teleport Library'
             released  = new Date()
-            vcsTag = '0.1.9'
+            vcsTag = '0.1.10'
         }
 
         licenses = ['Apache-2.0']
